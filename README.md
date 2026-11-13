@@ -48,8 +48,8 @@ Assistant, et l'intégration le recopie vers le poêle.
   sur le site RIKA est remise comme dans le planning.
 - Le poêle accepte deux plages par jour. Au-delà, rien n'est recopié et Home
   Assistant le signale dans Paramètres → Réparations.
-- Hors des plages, le mode Confort vise la température réduite ; les modes
-  Manuel et Auto laissent le poêle à l'arrêt.
+- Hors des plages, le mode Confort vise la température réduite et le mode
+  Auto met le poêle en veille. Le mode Manuel ne suit pas le planning.
 
 ## Installation
 
