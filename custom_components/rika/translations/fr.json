@@ -1,0 +1,178 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Compte RIKA Firenet",
+        "description": "Le compte que vous utilisez sur rika-firenet.com.",
+        "data": {
+          "email": "Email",
+          "password": "Mot de passe"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Se reconnecter",
+        "description": "Le mot de passe de {email} a été refusé. Saisissez le mot de passe actuel.",
+        "data": {
+          "password": "Mot de passe"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Email ou mot de passe refusé.",
+      "cannot_connect": "Impossible de joindre rika-firenet.com.",
+      "no_stoves": "Ce compte n'a aucun poêle."
+    },
+    "abort": {
+      "already_configured": "Ce compte est déjà configuré.",
+      "reauth_successful": "Reconnexion réussie."
+    }
+  },
+  "entity": {
+    "climate": {
+      "stove": {
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "manual": "Manuel",
+              "auto": "Auto",
+              "comfort": "Confort"
+            }
+          }
+        }
+      }
+    },
+    "switch": {
+      "power": {
+        "name": "Marche/arrêt"
+      },
+      "frost_protection": {
+        "name": "Hors-gel"
+      },
+      "heating_times": {
+        "name": "Plages de chauffe"
+      }
+    },
+    "number": {
+      "heating_power": {
+        "name": "Puissance de chauffe"
+      },
+      "setback_temperature": {
+        "name": "Température réduite"
+      },
+      "frost_protection_temperature": {
+        "name": "Température hors-gel"
+      }
+    },
+    "sensor": {
+      "state": {
+        "name": "État",
+        "state": {
+          "off": "Arrêté",
+          "standby": "En veille",
+          "external_request": "Demande externe",
+          "ignition": "Allumage",
+          "starting_up": "Démarrage",
+          "running": "En chauffe",
+          "cleaning": "Nettoyage",
+          "big_cleaning": "Grand nettoyage",
+          "burn_off": "Fin de combustion",
+          "frost_protection": "Hors-gel",
+          "lid_open": "Couvercle à granulés ouvert",
+          "empty_tank": "Réservoir à granulés vide",
+          "not_ignited": "Allumage échoué",
+          "error": "Erreur"
+        }
+      },
+      "room_temperature": {
+        "name": "Température de la pièce"
+      },
+      "flame_temperature": {
+        "name": "Température de flamme"
+      },
+      "pellets_consumed": {
+        "name": "Granulés consommés"
+      },
+      "pellets_before_service": {
+        "name": "Granulés avant entretien"
+      },
+      "runtime": {
+        "name": "Durée de fonctionnement"
+      },
+      "ignition_count": {
+        "name": "Allumages"
+      },
+      "error_code": {
+        "name": "Code d'erreur"
+      },
+      "wifi_signal": {
+        "name": "Signal Wi-Fi"
+      }
+    },
+    "binary_sensor": {
+      "problem": {
+        "name": "Problème"
+      },
+      "door": {
+        "name": "Porte"
+      },
+      "pellet_lid": {
+        "name": "Couvercle à granulés"
+      },
+      "connection": {
+        "name": "Connexion"
+      }
+    },
+    "text": {
+      "heating_time_mon_1": {
+        "name": "Lundi plage de chauffe 1"
+      },
+      "heating_time_mon_2": {
+        "name": "Lundi plage de chauffe 2"
+      },
+      "heating_time_tue_1": {
+        "name": "Mardi plage de chauffe 1"
+      },
+      "heating_time_tue_2": {
+        "name": "Mardi plage de chauffe 2"
+      },
+      "heating_time_wed_1": {
+        "name": "Mercredi plage de chauffe 1"
+      },
+      "heating_time_wed_2": {
+        "name": "Mercredi plage de chauffe 2"
+      },
+      "heating_time_thu_1": {
+        "name": "Jeudi plage de chauffe 1"
+      },
+      "heating_time_thu_2": {
+        "name": "Jeudi plage de chauffe 2"
+      },
+      "heating_time_fri_1": {
+        "name": "Vendredi plage de chauffe 1"
+      },
+      "heating_time_fri_2": {
+        "name": "Vendredi plage de chauffe 2"
+      },
+      "heating_time_sat_1": {
+        "name": "Samedi plage de chauffe 1"
+      },
+      "heating_time_sat_2": {
+        "name": "Samedi plage de chauffe 2"
+      },
+      "heating_time_sun_1": {
+        "name": "Dimanche plage de chauffe 1"
+      },
+      "heating_time_sun_2": {
+        "name": "Dimanche plage de chauffe 2"
+      }
+    }
+  },
+  "exceptions": {
+    "heating_time_format": {
+      "message": "Écrivez la plage sous la forme HH:MM-HH:MM, par exemple 06:00-08:30, ou laissez vide."
+    },
+    "heating_time_order": {
+      "message": "La fin de la plage doit être après son début."
+    }
+  }
+}

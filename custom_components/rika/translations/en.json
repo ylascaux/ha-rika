@@ -1,0 +1,178 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "RIKA Firenet account",
+        "description": "The account you use on rika-firenet.com.",
+        "data": {
+          "email": "Email",
+          "password": "Password"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Sign in again",
+        "description": "The password of {email} was refused. Enter the current one.",
+        "data": {
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Email or password refused.",
+      "cannot_connect": "rika-firenet.com could not be reached.",
+      "no_stoves": "This account has no stove."
+    },
+    "abort": {
+      "already_configured": "This account is already set up.",
+      "reauth_successful": "Signed in again."
+    }
+  },
+  "entity": {
+    "climate": {
+      "stove": {
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "manual": "Manual",
+              "auto": "Auto",
+              "comfort": "Comfort"
+            }
+          }
+        }
+      }
+    },
+    "switch": {
+      "power": {
+        "name": "Power"
+      },
+      "frost_protection": {
+        "name": "Frost protection"
+      },
+      "heating_times": {
+        "name": "Heating times"
+      }
+    },
+    "number": {
+      "heating_power": {
+        "name": "Heating power"
+      },
+      "setback_temperature": {
+        "name": "Setback temperature"
+      },
+      "frost_protection_temperature": {
+        "name": "Frost protection temperature"
+      }
+    },
+    "sensor": {
+      "state": {
+        "name": "State",
+        "state": {
+          "off": "Off",
+          "standby": "Standby",
+          "external_request": "External request",
+          "ignition": "Ignition",
+          "starting_up": "Starting up",
+          "running": "Heating",
+          "cleaning": "Cleaning",
+          "big_cleaning": "Deep cleaning",
+          "burn_off": "Burn-off",
+          "frost_protection": "Frost protection",
+          "lid_open": "Pellet lid open",
+          "empty_tank": "Pellet tank empty",
+          "not_ignited": "Ignition failed",
+          "error": "Error"
+        }
+      },
+      "room_temperature": {
+        "name": "Room temperature"
+      },
+      "flame_temperature": {
+        "name": "Flame temperature"
+      },
+      "pellets_consumed": {
+        "name": "Pellets consumed"
+      },
+      "pellets_before_service": {
+        "name": "Pellets before service"
+      },
+      "runtime": {
+        "name": "Runtime"
+      },
+      "ignition_count": {
+        "name": "Ignitions"
+      },
+      "error_code": {
+        "name": "Error code"
+      },
+      "wifi_signal": {
+        "name": "Wi-Fi signal"
+      }
+    },
+    "binary_sensor": {
+      "problem": {
+        "name": "Problem"
+      },
+      "door": {
+        "name": "Door"
+      },
+      "pellet_lid": {
+        "name": "Pellet lid"
+      },
+      "connection": {
+        "name": "Connection"
+      }
+    },
+    "text": {
+      "heating_time_mon_1": {
+        "name": "Monday heating time 1"
+      },
+      "heating_time_mon_2": {
+        "name": "Monday heating time 2"
+      },
+      "heating_time_tue_1": {
+        "name": "Tuesday heating time 1"
+      },
+      "heating_time_tue_2": {
+        "name": "Tuesday heating time 2"
+      },
+      "heating_time_wed_1": {
+        "name": "Wednesday heating time 1"
+      },
+      "heating_time_wed_2": {
+        "name": "Wednesday heating time 2"
+      },
+      "heating_time_thu_1": {
+        "name": "Thursday heating time 1"
+      },
+      "heating_time_thu_2": {
+        "name": "Thursday heating time 2"
+      },
+      "heating_time_fri_1": {
+        "name": "Friday heating time 1"
+      },
+      "heating_time_fri_2": {
+        "name": "Friday heating time 2"
+      },
+      "heating_time_sat_1": {
+        "name": "Saturday heating time 1"
+      },
+      "heating_time_sat_2": {
+        "name": "Saturday heating time 2"
+      },
+      "heating_time_sun_1": {
+        "name": "Sunday heating time 1"
+      },
+      "heating_time_sun_2": {
+        "name": "Sunday heating time 2"
+      }
+    }
+  },
+  "exceptions": {
+    "heating_time_format": {
+      "message": "Write the time range as HH:MM-HH:MM, for example 06:00-08:30, or leave it empty."
+    },
+    "heating_time_order": {
+      "message": "The end of the time range must be after its start."
+    }
+  }
+}
