@@ -16,4 +16,5 @@ MODE_MANUAL = 0
 MODE_AUTO = 1
 MODE_COMFORT = 2
 
-WEEKDAYS = ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+# Option: the Home Assistant schedule copied to the stove's heating times
+CONF_SCHEDULE_ENTITY = "schedule_entity"

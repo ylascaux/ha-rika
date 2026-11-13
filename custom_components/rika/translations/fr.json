@@ -121,58 +121,23 @@
       "connection": {
         "name": "Connexion"
       }
-    },
-    "text": {
-      "heating_time_mon_1": {
-        "name": "Lundi plage de chauffe 1"
-      },
-      "heating_time_mon_2": {
-        "name": "Lundi plage de chauffe 2"
-      },
-      "heating_time_tue_1": {
-        "name": "Mardi plage de chauffe 1"
-      },
-      "heating_time_tue_2": {
-        "name": "Mardi plage de chauffe 2"
-      },
-      "heating_time_wed_1": {
-        "name": "Mercredi plage de chauffe 1"
-      },
-      "heating_time_wed_2": {
-        "name": "Mercredi plage de chauffe 2"
-      },
-      "heating_time_thu_1": {
-        "name": "Jeudi plage de chauffe 1"
-      },
-      "heating_time_thu_2": {
-        "name": "Jeudi plage de chauffe 2"
-      },
-      "heating_time_fri_1": {
-        "name": "Vendredi plage de chauffe 1"
-      },
-      "heating_time_fri_2": {
-        "name": "Vendredi plage de chauffe 2"
-      },
-      "heating_time_sat_1": {
-        "name": "Samedi plage de chauffe 1"
-      },
-      "heating_time_sat_2": {
-        "name": "Samedi plage de chauffe 2"
-      },
-      "heating_time_sun_1": {
-        "name": "Dimanche plage de chauffe 1"
-      },
-      "heating_time_sun_2": {
-        "name": "Dimanche plage de chauffe 2"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Plages de chauffe",
+        "description": "Choisissez un planning Home Assistant : ses plages sont recopiées vers le poêle à chaque modification, et remplacent celles réglées sur le poêle. Le poêle accepte deux plages par jour. Laissez vide pour garder les plages réglées sur le poêle.",
+        "data": {
+          "schedule_entity": "Planning"
+        }
       }
     }
   },
-  "exceptions": {
-    "heating_time_format": {
-      "message": "Écrivez la plage sous la forme HH:MM-HH:MM, par exemple 06:00-08:30, ou laissez vide."
-    },
-    "heating_time_order": {
-      "message": "La fin de la plage doit être après son début."
+  "issues": {
+    "schedule_too_many_ranges": {
+      "title": "Le planning compte trop de plages",
+      "description": "Le planning {schedule} compte plus de deux plages sur au moins une journée. Le poêle en accepte deux par jour : le planning n'a donc pas été recopié. Réduisez-le à deux plages par jour."
     }
   }
 }

@@ -7,23 +7,42 @@ from typing import Any
 
 import voluptuous as vol
 
-from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
+from homeassistant.config_entries import (
+    ConfigEntry,
+    ConfigFlow,
+    ConfigFlowResult,
+    OptionsFlowWithReload,
+)
 from homeassistant.const import CONF_EMAIL, CONF_PASSWORD
+from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
+from homeassistant.helpers.selector import EntitySelector, EntitySelectorConfig
 
 from .api import RikaAuthError, RikaClient, RikaError
-from .const import DOMAIN
+from .const import CONF_SCHEDULE_ENTITY, DOMAIN
 
 USER_SCHEMA = vol.Schema(
     {vol.Required(CONF_EMAIL): str, vol.Required(CONF_PASSWORD): str}
 )
 REAUTH_SCHEMA = vol.Schema({vol.Required(CONF_PASSWORD): str})
+OPTIONS_SCHEMA = vol.Schema(
+    {
+        vol.Optional(CONF_SCHEDULE_ENTITY): EntitySelector(
+            EntitySelectorConfig(domain="schedule")
+        )
+    }
+)
 
 
 class RikaConfigFlow(ConfigFlow, domain=DOMAIN):
     """Ask for the RIKA Firenet account."""
 
     VERSION = 1
+
+    @staticmethod
+    @callback
+    def async_get_options_flow(config_entry: ConfigEntry) -> RikaOptionsFlow:
+        return RikaOptionsFlow()
 
     async def _async_check(self, email: str, password: str) -> str | None:
         """Try the account; return the error key, or None when it works."""
@@ -81,4 +100,20 @@ class RikaConfigFlow(ConfigFlow, domain=DOMAIN):
             data_schema=REAUTH_SCHEMA,
             description_placeholders={"email": entry.data[CONF_EMAIL]},
             errors=errors,
+        )
+
+
+class RikaOptionsFlow(OptionsFlowWithReload):
+    """Choose the schedule copied to the stove's heating times."""
+
+    async def async_step_init(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        if user_input is not None:
+            return self.async_create_entry(data=user_input)
+        return self.async_show_form(
+            step_id="init",
+            data_schema=self.add_suggested_values_to_schema(
+                OPTIONS_SCHEMA, self.config_entry.options
+            ),
         )

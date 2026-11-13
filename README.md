@@ -18,7 +18,6 @@ mêmes réglages que le site.
 | Puissance de chauffe | 30 à 100 %, par pas de 5 |
 | Température réduite | 12 à 20 °C, appliquée hors des plages de chauffe |
 | Température hors-gel | 4 à 10 °C |
-| Plages de chauffe | Deux plages par jour, à écrire `06:00-08:30` ; vide = plage inutilisée |
 | Capteurs | État, température de la pièce et de la flamme, granulés consommés, granulés avant entretien, durée de fonctionnement, allumages, code d'erreur, signal Wi-Fi |
 | Capteurs binaires | Problème, porte, couvercle à granulés, connexion |
 
@@ -30,6 +29,27 @@ mêmes réglages que le site.
 
 Régler une température sur le thermostat passe le poêle en mode Confort, le
 seul où la consigne est suivie.
+
+## Planning de chauffe
+
+Le programme hebdomadaire se dessine dans l'éditeur de planning de Home
+Assistant, et l'intégration le recopie vers le poêle.
+
+1. Créez un planning : Paramètres → Appareils et services → Entrées → Créer
+   une entrée → **Planning**, puis dessinez les plages de chauffe de la semaine.
+2. Sur la carte de l'intégration RIKA, cliquez sur **Configurer** et
+   choisissez ce planning.
+3. Activez l'interrupteur **Plages de chauffe** pour que le poêle le suive.
+
+À savoir :
+
+- Une modification du planning arrive sur le poêle en moins d'une minute.
+- Le planning de Home Assistant fait foi : une plage changée sur le poêle ou
+  sur le site RIKA est remise comme dans le planning.
+- Le poêle accepte deux plages par jour. Au-delà, rien n'est recopié et Home
+  Assistant le signale dans Paramètres → Réparations.
+- Hors des plages, le mode Confort vise la température réduite ; les modes
+  Manuel et Auto laissent le poêle à l'arrêt.
 
 ## Installation
 

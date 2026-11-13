@@ -2,7 +2,6 @@
 
 import pytest
 
-from homeassistant.exceptions import ServiceValidationError
 from homeassistant.helpers import entity_registry as er
 
 from custom_components.rika.sensor import stove_state
@@ -43,7 +42,6 @@ async def test_states(hass, entry):
     assert hass.states.get(entity_id(hass, "binary_sensor", "problem")).state == "off"
     assert hass.states.get(entity_id(hass, "binary_sensor", "door")).state == "off"
     assert hass.states.get(entity_id(hass, "binary_sensor", "connection")).state == "on"
-    assert hass.states.get(entity_id(hass, "text", "heating_time_mon_1")).state == ""
 
 
 async def test_power(hass, entry, client):
@@ -114,20 +112,6 @@ async def test_numbers(hass, entry, client):
 
     await call(hass, "switch", "turn_on", entity_id(hass, "switch", "frost_protection"))
     assert client.sent[-1] == {"frostProtectionActive": True}
-
-
-async def test_heating_time(hass, entry, client):
-    text = entity_id(hass, "text", "heating_time_sat_2")
-
-    await call(hass, "text", "set_value", text, value="07:30-23:00")
-    assert client.sent[-1] == {"heatingTimeSat2": "07302300"}
-    assert hass.states.get(text).state == "07:30-23:00"
-
-    with pytest.raises(ServiceValidationError):
-        await call(hass, "text", "set_value", text, value="23:00-07:30")
-
-    await call(hass, "text", "set_value", text, value="")
-    assert client.sent[-1] == {"heatingTimeSat2": "00000000"}
 
 
 @pytest.mark.parametrize(

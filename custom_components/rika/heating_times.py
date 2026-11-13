@@ -1,41 +1,60 @@
-"""Heating time ranges of the weekly schedule.
+"""Weekly heating times of the stove, copied from a Home Assistant schedule.
 
-The cloud holds each range as "HHMMHHMM" (start then end); "00000000" means
-no range. Here a range is written "HH:MM-HH:MM" and no range is "".
+The stove takes two time ranges a day. The cloud holds each one as
+"HHMMHHMM" (start then end); "00000000" means the range is not used.
 """
 
 from __future__ import annotations
 
-import re
+from datetime import time
+from typing import Any
 
 EMPTY = "00000000"
 
-TEXT_PATTERN = r"^$|^([01]\d|2[0-3]):[0-5]\d-([01]\d|2[0-3]):[0-5]\d$"
+RANGES_PER_DAY = 2
 
-_TEXT = re.compile(r"^(\d\d):(\d\d)-(\d\d):(\d\d)$")
-_RAW = re.compile(r"^\d{8}$")
+# Home Assistant's name of each weekday, and the one in the stove's controls
+DAYS = {
+    "monday": "Mon",
+    "tuesday": "Tue",
+    "wednesday": "Wed",
+    "thursday": "Thu",
+    "friday": "Fri",
+    "saturday": "Sat",
+    "sunday": "Sun",
+}
 
 
-def decode(raw: str | None) -> str | None:
-    """Turn "06000830" into "06:00-08:30"; None when the value is not a range."""
-    if raw is None or not _RAW.match(str(raw)):
-        return None
-    if raw == EMPTY:
-        return ""
-    return f"{raw[0:2]}:{raw[2:4]}-{raw[4:6]}:{raw[6:8]}"
+class TooManyRanges(Exception):
+    """A day of the schedule has more ranges than the stove takes."""
 
 
-def encode(text: str) -> str:
-    """Turn "06:00-08:30" into "06000830"; raise ValueError on a bad range."""
-    text = text.strip()
-    if not text:
-        return EMPTY
-    match = _TEXT.match(text)
-    if not match:
-        raise ValueError("format")
-    start_h, start_m, end_h, end_m = (int(part) for part in match.groups())
-    if start_h > 23 or end_h > 23 or start_m > 59 or end_m > 59:
-        raise ValueError("format")
-    if (end_h, end_m) <= (start_h, start_m):
-        raise ValueError("order")
-    return f"{start_h:02d}{start_m:02d}{end_h:02d}{end_m:02d}"
+def _minutes(value: Any) -> int:
+    """Read a time of the schedule, given as a time or as "HH:MM:SS"."""
+    if not isinstance(value, time):
+        value = time.fromisoformat(str(value))
+    return value.hour * 60 + value.minute
+
+
+def from_schedule(plan: dict[str, list[dict[str, Any]]]) -> dict[str, str]:
+    """Turn the week of a Home Assistant schedule into the stove's controls."""
+    controls: dict[str, str] = {}
+    for day, short in DAYS.items():
+        ranges = sorted(
+            (start, end)
+            for start, end in (
+                (_minutes(block["from"]), _minutes(block["to"]))
+                for block in plan.get(day, [])
+            )
+            # A range shorter than a minute cannot be told to the stove.
+            if end > start
+        )
+        if len(ranges) > RANGES_PER_DAY:
+            raise TooManyRanges(day)
+        for slot in range(RANGES_PER_DAY):
+            raw = EMPTY
+            if slot < len(ranges):
+                start, end = ranges[slot]
+                raw = f"{start // 60:02d}{start % 60:02d}{end // 60:02d}{end % 60:02d}"
+            controls[f"heatingTime{short}{slot + 1}"] = raw
+    return controls

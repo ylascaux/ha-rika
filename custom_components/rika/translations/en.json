@@ -121,58 +121,23 @@
       "connection": {
         "name": "Connection"
       }
-    },
-    "text": {
-      "heating_time_mon_1": {
-        "name": "Monday heating time 1"
-      },
-      "heating_time_mon_2": {
-        "name": "Monday heating time 2"
-      },
-      "heating_time_tue_1": {
-        "name": "Tuesday heating time 1"
-      },
-      "heating_time_tue_2": {
-        "name": "Tuesday heating time 2"
-      },
-      "heating_time_wed_1": {
-        "name": "Wednesday heating time 1"
-      },
-      "heating_time_wed_2": {
-        "name": "Wednesday heating time 2"
-      },
-      "heating_time_thu_1": {
-        "name": "Thursday heating time 1"
-      },
-      "heating_time_thu_2": {
-        "name": "Thursday heating time 2"
-      },
-      "heating_time_fri_1": {
-        "name": "Friday heating time 1"
-      },
-      "heating_time_fri_2": {
-        "name": "Friday heating time 2"
-      },
-      "heating_time_sat_1": {
-        "name": "Saturday heating time 1"
-      },
-      "heating_time_sat_2": {
-        "name": "Saturday heating time 2"
-      },
-      "heating_time_sun_1": {
-        "name": "Sunday heating time 1"
-      },
-      "heating_time_sun_2": {
-        "name": "Sunday heating time 2"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Heating times",
+        "description": "Choose a Home Assistant schedule: its time ranges are copied to the stove whenever they change, and replace the ones set on the stove. The stove takes two ranges a day. Leave empty to keep the heating times set on the stove.",
+        "data": {
+          "schedule_entity": "Schedule"
+        }
       }
     }
   },
-  "exceptions": {
-    "heating_time_format": {
-      "message": "Write the time range as HH:MM-HH:MM, for example 06:00-08:30, or leave it empty."
-    },
-    "heating_time_order": {
-      "message": "The end of the time range must be after its start."
+  "issues": {
+    "schedule_too_many_ranges": {
+      "title": "The schedule has too many time ranges",
+      "description": "The schedule {schedule} has more than two time ranges on at least one day. The stove takes two a day, so the schedule was not copied. Reduce it to two ranges a day."
     }
   }
 }
